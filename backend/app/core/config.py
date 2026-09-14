@@ -1,0 +1,37 @@
+"""Application settings, read from environment variables."""
+
+from functools import lru_cache
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    """All configuration for ClaimGuard.
+
+    Values come from environment variables (or a local .env file), so no
+    secrets ever live in the code.
+    """
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    app_name: str = "ClaimGuard"
+    environment: str = "development"
+    log_level: str = "INFO"
+
+    database_url: str = "postgresql+psycopg://claimguard:claimguard@localhost:5432/claimguard"
+    redis_url: str = "redis://localhost:6379/0"
+
+    llm_provider: str = "anthropic"
+    llm_model_name: str = "claude-sonnet-4-5"
+    anthropic_api_key: str = ""
+
+    embedding_model_name: str = "BAAI/bge-small-en-v1.5"
+
+    max_upload_size_megabytes: int = 10
+    uploads_per_minute_limit: int = 10
+
+
+@lru_cache
+def get_settings() -> Settings:
+    """Return the settings object, created once and reused."""
+    return Settings()
