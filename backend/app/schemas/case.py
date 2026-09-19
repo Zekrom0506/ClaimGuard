@@ -1,0 +1,25 @@
+"""Shapes of the case endpoints' responses."""
+
+from datetime import datetime
+
+from pydantic import BaseModel
+
+
+class CaseCreatedResponse(BaseModel):
+    """Returned straight after upload, before processing has finished."""
+
+    case_id: str
+    status: str
+
+
+class CaseDetailResponse(BaseModel):
+    """Everything the result page needs about one case."""
+
+    case_id: str
+    original_filename: str
+    status: str
+    treatment_type: str
+    error_message: str | None
+    masked_text: str | None
+    processing_seconds: float | None
+    created_at: datetime

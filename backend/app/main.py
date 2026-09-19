@@ -2,9 +2,11 @@
 
 from fastapi import FastAPI
 
-from app.api import health
+from app.api import cases, health
 from app.core.config import get_settings
+from app.core.errors import register_error_handlers
 from app.core.logging_config import configure_logging
+from app.core.request_context import RequestIdMiddleware
 
 
 def create_app() -> FastAPI:
@@ -17,7 +19,11 @@ def create_app() -> FastAPI:
         description="Decision support for prior-authorization checks. "
         "A human reviewer makes the final decision.",
     )
+    application.add_middleware(RequestIdMiddleware)
+    register_error_handlers(application)
+
     application.include_router(health.router)
+    application.include_router(cases.router)
 
     @application.get("/")
     def root() -> dict[str, str]:
