@@ -21,3 +21,6 @@ def configure_logging(log_level: str) -> None:
     root_logger.handlers.clear()
     root_logger.addHandler(handler)
     root_logger.setLevel(log_level)
+
+    # Presidio logs every recognizer it loads; only its errors are useful to us.
+    logging.getLogger("presidio-analyzer").setLevel(logging.ERROR)

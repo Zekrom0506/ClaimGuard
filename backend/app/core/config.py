@@ -28,8 +28,14 @@ class Settings(BaseSettings):
     project_root: Path = DEFAULT_PROJECT_ROOT
 
     llm_provider: str = "anthropic"
-    llm_model_name: str = "claude-sonnet-5-5"
+    llm_model_name: str = "claude-sonnet-5"
     anthropic_api_key: str = ""
+    ollama_base_url: str = "http://localhost:11434"
+    # USD per million tokens, used to estimate cost per case. Check current pricing.
+    llm_input_price_per_million_tokens: float = 2.0
+    llm_output_price_per_million_tokens: float = 10.0
+
+    extraction_prompt_version: str = "v1"
 
     embedding_model_name: str = "BAAI/bge-small-en-v1.5"
     spacy_model_name: str = "en_core_web_lg"
