@@ -23,6 +23,8 @@ from app.core.config import get_settings  # noqa: E402
 from app.core.database import Base, engine  # noqa: E402
 from app.core.rate_limiter import get_redis_client  # noqa: E402
 from app.main import app  # noqa: E402
+from app.services.pipeline import PipelineDependencies  # noqa: E402
+from tests.fakes import default_recorded_responses, make_fake_pipeline  # noqa: E402
 
 EVALUATION_CASES_DIRECTORY = get_settings().project_root / "data" / "evaluation" / "cases"
 
@@ -55,10 +57,19 @@ def fake_redis() -> fakeredis.FakeRedis:
 
 
 @pytest.fixture
-def client(fake_redis: fakeredis.FakeRedis) -> Generator[TestClient, None, None]:
-    """A test client that uses the fake Redis for rate limiting."""
+def fake_pipeline() -> PipelineDependencies:
+    """A pipeline that never calls a real language model."""
+    return make_fake_pipeline(default_recorded_responses())
+
+
+@pytest.fixture
+def client(
+    fake_redis: fakeredis.FakeRedis, fake_pipeline: PipelineDependencies
+) -> Generator[TestClient, None, None]:
+    """A test client that uses the fake Redis and the fake pipeline."""
     app.dependency_overrides[get_redis_client] = lambda: fake_redis
     with TestClient(app) as test_client:
+        app.state.pipeline = fake_pipeline
         yield test_client
     app.dependency_overrides.clear()
 

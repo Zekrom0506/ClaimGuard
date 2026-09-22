@@ -3,7 +3,7 @@
 import uuid
 from datetime import UTC, datetime
 
-from sqlalchemy import JSON, DateTime, Float, String, Text
+from sqlalchemy import JSON, DateTime, Float, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -46,6 +46,16 @@ class PriorAuthCase(Base):
     masked_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     # Placeholder -> original values, e.g. {"[PATIENT_NAME]": ["Jordan Testcase"]}.
     pii_values: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+
+    extracted_fields: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    # Reasons a human should look closer, e.g. "extraction_invalid".
+    review_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
+
+    llm_model_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    prompt_versions: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    llm_input_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    llm_output_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    llm_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
 
     processing_seconds: Mapped[float | None] = mapped_column(Float, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)

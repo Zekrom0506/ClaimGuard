@@ -21,5 +21,9 @@ class CaseDetailResponse(BaseModel):
     treatment_type: str
     error_message: str | None
     masked_text: str | None
+    extracted_fields: dict | None
+    review_flags: list[str]
+    llm_model_name: str | None
+    llm_cost_usd: float | None
     processing_seconds: float | None
     created_at: datetime

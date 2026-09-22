@@ -1,6 +1,6 @@
 """Upload a request PDF and read back the case."""
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Request, UploadFile
 from sqlalchemy.orm import Session
 
 from app.core.database import get_database_session
@@ -19,6 +19,7 @@ router = APIRouter(prefix="/cases", tags=["cases"])
     dependencies=[Depends(enforce_upload_rate_limit)],
 )
 async def upload_case(
+    request: Request,
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     database_session: Session = Depends(get_database_session),
@@ -29,7 +30,9 @@ async def upload_case(
     case_service.validate_pdf_upload(filename, file_bytes)
 
     new_case = case_service.create_case(database_session, filename)
-    background_tasks.add_task(case_processor.process_case, new_case.id, file_bytes)
+    background_tasks.add_task(
+        case_processor.process_case, new_case.id, file_bytes, request.app.state.pipeline
+    )
     return CaseCreatedResponse(case_id=new_case.id, status=new_case.status)
 
 
@@ -52,6 +55,10 @@ def build_case_detail(case: PriorAuthCase) -> CaseDetailResponse:
         treatment_type=case.treatment_type,
         error_message=case.error_message,
         masked_text=case.masked_text,
+        extracted_fields=case.extracted_fields,
+        review_flags=case.review_flags or [],
+        llm_model_name=case.llm_model_name,
+        llm_cost_usd=case.llm_cost_usd,
         processing_seconds=case.processing_seconds,
         created_at=case.created_at,
     )

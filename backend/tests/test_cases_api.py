@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 
 from app.core.config import get_settings
 from tests.conftest import evaluation_case_path, make_pdf_bytes
+from tests.fakes import make_fake_pipeline
 
 
 def upload_pdf(client: TestClient, pdf_bytes: bytes, filename: str = "request.pdf"):
@@ -85,3 +86,28 @@ def test_missing_file_gives_validation_error(client: TestClient) -> None:
     response = client.post("/cases")
     assert response.status_code == 422
     assert response.json()["error"]["code"] == "validation_error"
+
+
+def test_extracted_fields_are_returned(client: TestClient) -> None:
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["extracted_fields"]["procedure_code"]["value"] == "72158"
+    assert body["llm_cost_usd"] is not None
+
+
+def test_invalid_extraction_sends_case_to_human_review(client: TestClient) -> None:
+    client.app.state.pipeline = make_fake_pipeline({"extraction": ["not json"]})
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["status"] == "needs_human_review"
+    assert "extraction_invalid" in body["review_flags"]
+
+
+def test_unreachable_language_model_marks_case_failed(client: TestClient) -> None:
+    client.app.state.pipeline = make_fake_pipeline({})
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["status"] == "failed"

@@ -6,11 +6,18 @@ import time
 from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
+from app.core.llm_client import LLMError, LLMResponse, calculate_cost_usd
 from app.models.case import CaseStatus, PriorAuthCase
+from app.services.extractor import extract_case_fields
 from app.services.pdf_reader import PdfReadError, read_pdf_text
+from app.services.pipeline import PipelineDependencies
 from app.services.privacy_masker import mask_private_information
 
 logger = logging.getLogger(__name__)
+
+
+class StopProcessing(Exception):
+    """A step decided the case needs a human before anything else runs."""
 
 
 def set_status(database_session: Session, case: PriorAuthCase, status: str) -> None:
@@ -19,16 +26,76 @@ def set_status(database_session: Session, case: PriorAuthCase, status: str) -> N
     database_session.commit()
 
 
-def run_pipeline(database_session: Session, case: PriorAuthCase, pdf_bytes: bytes) -> None:
-    """Read the PDF and mask private details."""
+def add_review_flag(case: PriorAuthCase, flag: str) -> None:
+    """Add a reason for a human to look closer.
+
+    A new list is assigned (not appended in place) so SQLAlchemy notices the change.
+    """
+    existing_flags = list(case.review_flags or [])
+    if flag not in existing_flags:
+        existing_flags.append(flag)
+    case.review_flags = existing_flags
+
+
+def record_llm_usage(
+    case: PriorAuthCase, responses: list[LLMResponse], pipeline: PipelineDependencies
+) -> None:
+    """Add the tokens and estimated cost of these model calls to the case."""
+    for response in responses:
+        case.llm_model_name = response.model_name
+        case.llm_input_tokens = (case.llm_input_tokens or 0) + response.input_tokens
+        case.llm_output_tokens = (case.llm_output_tokens or 0) + response.output_tokens
+    case.llm_cost_usd = calculate_cost_usd(
+        case.llm_input_tokens or 0, case.llm_output_tokens or 0, pipeline.settings
+    )
+
+
+def record_prompt_version(case: PriorAuthCase, task_name: str, version: str) -> None:
+    """Remember which prompt version produced this case's results."""
+    prompt_versions = dict(case.prompt_versions or {})
+    prompt_versions[task_name] = version
+    case.prompt_versions = prompt_versions
+
+
+def read_and_mask(case: PriorAuthCase, pdf_bytes: bytes) -> None:
+    """Step 1 and 2: read the PDF, then hide private details."""
     case.original_text = read_pdf_text(pdf_bytes)
     masking_result = mask_private_information(case.original_text)
     case.masked_text = masking_result.masked_text
     case.pii_values = masking_result.pii_values
+
+
+def extract_fields(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
+    """Step 3: structured extraction from the MASKED text only."""
+    prompt_version = pipeline.settings.extraction_prompt_version
+    outcome = extract_case_fields(case.masked_text or "", pipeline.llm_client, prompt_version)
+    record_llm_usage(case, outcome.responses, pipeline)
+    record_prompt_version(case, "extraction", prompt_version)
+
+    if not outcome.succeeded:
+        add_review_flag(case, "extraction_invalid")
+        raise StopProcessing()
+
+    case.extracted_fields = outcome.fields.model_dump()
+    for field_name in outcome.unverified_source_fields:
+        add_review_flag(case, f"extraction_source_not_found:{field_name}")
+
+
+def run_pipeline(
+    database_session: Session,
+    case: PriorAuthCase,
+    pdf_bytes: bytes,
+    pipeline: PipelineDependencies,
+) -> None:
+    """Run every step in order, saving after each one."""
+    read_and_mask(case, pdf_bytes)
+    database_session.commit()
+
+    extract_fields(case, pipeline)
     database_session.commit()
 
 
-def process_case(case_id: str, pdf_bytes: bytes) -> None:
+def process_case(case_id: str, pdf_bytes: bytes, pipeline: PipelineDependencies) -> None:
     """Process one case from start to finish. Runs after the upload response is sent.
 
     Opens its own database session because the request's session is closed
@@ -44,14 +111,21 @@ def process_case(case_id: str, pdf_bytes: bytes) -> None:
 
         set_status(database_session, case, CaseStatus.PROCESSING)
         try:
-            run_pipeline(database_session, case, pdf_bytes)
+            run_pipeline(database_session, case, pdf_bytes, pipeline)
             final_status = CaseStatus.DONE
+        except StopProcessing:
+            final_status = CaseStatus.NEEDS_HUMAN_REVIEW
         except PdfReadError as error:
             case.error_message = str(error)
             final_status = CaseStatus.FAILED
+        except LLMError as error:
+            logger.error("Language model unavailable for case %s: %s", case_id, error)
+            case.error_message = "The language model could not be reached."
+            final_status = CaseStatus.FAILED
         except Exception:
-            # Log the case id and the error type only: the message could contain document text.
+            # Log the case id only: an error message could contain document text.
             logger.exception("Processing failed for case %s", case_id)
+            database_session.rollback()
             case.error_message = "Processing failed. Please try again."
             final_status = CaseStatus.FAILED
 
