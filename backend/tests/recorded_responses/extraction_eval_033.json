@@ -1,0 +1,13 @@
+{
+  "patient_age": {"value": 31, "source_sentence": "Age: 31 years"},
+  "procedure_code": {"value": "72158", "source_sentence": "CPT Code: 72158"},
+  "diagnosis_codes": {"value": ["M51.26"], "source_sentence": "Diagnosis Codes: M51.26"},
+  "symptom_duration_weeks": {"value": 16, "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 4 months."},
+  "physical_therapy_weeks": {"value": 0, "source_sentence": "No physical therapy has been tried."},
+  "other_conservative_treatments": {"value": [], "source_sentence": null},
+  "red_flags": {"value": [], "source_sentence": null},
+  "neurological_exam_documented": {"value": true, "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."},
+  "prior_lumbar_mri_within_12_months": {"value": false, "source_sentence": "Previous imaging: no previous lumbar spine imaging."},
+  "requesting_specialty": {"value": "Primary Care", "source_sentence": "Specialty: Primary Care"},
+  "clinical_summary": "Lumbar spine MRI requested for 4 months of radicular low back pain; no physical therapy has been tried."
+}
