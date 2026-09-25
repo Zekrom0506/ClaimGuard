@@ -24,3 +24,4 @@ dist/
 data/policies/*.pdf
 data/synthetic_cases/*.pdf
 ml/*.joblib
+!data/policies/sample_lumbar_mri_policy.pdf

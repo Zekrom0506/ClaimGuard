@@ -48,6 +48,8 @@ class PriorAuthCase(Base):
     pii_values: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
     extracted_fields: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    # Which policy chunks the search returned: ids, sections and scores (no text).
+    retrieved_chunks: Mapped[list | None] = mapped_column(JSON, nullable=True)
     # Reasons a human should look closer, e.g. "extraction_invalid".
     review_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
 
