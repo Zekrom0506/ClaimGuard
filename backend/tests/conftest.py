@@ -20,13 +20,16 @@ from sqlalchemy import text  # noqa: E402
 
 import app.models  # noqa: E402, F401
 from app.core.config import get_settings  # noqa: E402
-from app.core.database import Base, engine  # noqa: E402
+from app.core.database import Base, SessionLocal, engine  # noqa: E402
 from app.core.rate_limiter import get_redis_client  # noqa: E402
 from app.main import app  # noqa: E402
 from app.services.pipeline import PipelineDependencies  # noqa: E402
-from tests.fakes import default_recorded_responses, make_fake_pipeline  # noqa: E402
+from app.services.policy_ingestion import ingest_policy_pdf  # noqa: E402
+from tests.fakes import FakeEmbedder, default_recorded_responses, make_fake_pipeline  # noqa: E402
 
-EVALUATION_CASES_DIRECTORY = get_settings().project_root / "data" / "evaluation" / "cases"
+PROJECT_ROOT = get_settings().project_root
+EVALUATION_CASES_DIRECTORY = PROJECT_ROOT / "data" / "evaluation" / "cases"
+SAMPLE_POLICY_PDF = PROJECT_ROOT / "data" / "policies" / "sample_lumbar_mri_policy.pdf"
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -63,8 +66,17 @@ def fake_pipeline() -> PipelineDependencies:
 
 
 @pytest.fixture
+def sample_policy_loaded() -> int:
+    """Load the synthetic sample policy into policy_chunks (with the fake embedder)."""
+    with SessionLocal() as database_session:
+        return ingest_policy_pdf(database_session, SAMPLE_POLICY_PDF, FakeEmbedder())
+
+
+@pytest.fixture
 def client(
-    fake_redis: fakeredis.FakeRedis, fake_pipeline: PipelineDependencies
+    fake_redis: fakeredis.FakeRedis,
+    fake_pipeline: PipelineDependencies,
+    sample_policy_loaded: int,
 ) -> Generator[TestClient, None, None]:
     """A test client that uses the fake Redis and the fake pipeline."""
     app.dependency_overrides[get_redis_client] = lambda: fake_redis
