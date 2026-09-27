@@ -38,6 +38,8 @@ class Settings(BaseSettings):
     extraction_prompt_version: str = "v1"
 
     embedding_model_name: str = "BAAI/bge-small-en-v1.5"
+    # "hybrid" (vector + keyword) or "vector" (used by the evaluation comparison).
+    retrieval_search_mode: str = "hybrid"
     spacy_model_name: str = "en_core_web_lg"
 
     max_upload_size_megabytes: int = 10

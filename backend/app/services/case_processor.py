@@ -12,6 +12,7 @@ from app.services.extractor import extract_case_fields
 from app.services.pdf_reader import PdfReadError, read_pdf_text
 from app.services.pipeline import PipelineDependencies
 from app.services.privacy_masker import mask_private_information
+from app.services.retriever import RetrievedChunk, retrieve_policy_chunks
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +82,36 @@ def extract_fields(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
         add_review_flag(case, f"extraction_source_not_found:{field_name}")
 
 
+def retrieve_policy(
+    database_session: Session, case: PriorAuthCase, pipeline: PipelineDependencies
+) -> list[RetrievedChunk]:
+    """Step 4: find the policy chunks that apply to this case."""
+    retrieved_chunks = retrieve_policy_chunks(
+        database_session,
+        case.extracted_fields or {},
+        pipeline.embedder,
+        search_mode=pipeline.settings.retrieval_search_mode,
+        treatment_type=case.treatment_type,
+    )
+    if not retrieved_chunks:
+        add_review_flag(case, "no_policy_found")
+        raise StopProcessing()
+
+    chunk_summaries = []
+    for chunk in retrieved_chunks:
+        chunk_summaries.append(
+            {
+                "chunk_id": chunk.chunk_id,
+                "policy_name": chunk.policy_name,
+                "section_title": chunk.section_title,
+                "page_number": chunk.page_number,
+                "fused_score": chunk.fused_score,
+            }
+        )
+    case.retrieved_chunks = chunk_summaries
+    return retrieved_chunks
+
+
 def run_pipeline(
     database_session: Session,
     case: PriorAuthCase,
@@ -92,6 +123,9 @@ def run_pipeline(
     database_session.commit()
 
     extract_fields(case, pipeline)
+    database_session.commit()
+
+    retrieve_policy(database_session, case, pipeline)
     database_session.commit()
 
 

@@ -56,6 +56,7 @@ def build_case_detail(case: PriorAuthCase) -> CaseDetailResponse:
         error_message=case.error_message,
         masked_text=case.masked_text,
         extracted_fields=case.extracted_fields,
+        retrieved_chunks=case.retrieved_chunks or [],
         review_flags=case.review_flags or [],
         llm_model_name=case.llm_model_name,
         llm_cost_usd=case.llm_cost_usd,
