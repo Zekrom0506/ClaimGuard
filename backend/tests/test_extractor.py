@@ -5,12 +5,9 @@ import json
 import pytest
 
 from app.core.llm_client import FakeLLMClient
-from app.services.extractor import (
-    InvalidModelOutput,
-    extract_case_fields,
-    parse_json_object,
-    validate_extraction,
-)
+from app.schemas.extraction import ExtractedCaseFields
+from app.services.extractor import extract_case_fields
+from app.services.structured_output import InvalidModelOutput, parse_json_object, validate_answer
 from tests.fakes import load_recorded_response
 
 MASKED_TEXT = (
@@ -21,6 +18,10 @@ MASKED_TEXT = (
     "sensation intact, straight leg raise positive on the left at 45 degrees.\n"
     "Previous imaging: no previous lumbar spine imaging."
 )
+
+
+def validate_extraction_text(model_text: str) -> ExtractedCaseFields:
+    return validate_answer(model_text, ExtractedCaseFields)
 
 
 def valid_answer() -> str:
@@ -44,24 +45,24 @@ def test_parse_rejects_text_without_json() -> None:
 
 
 def test_valid_answer_passes_validation() -> None:
-    fields = validate_extraction(valid_answer())
+    fields = validate_extraction_text(valid_answer())
     assert fields.procedure_code.value == "72158"
     assert fields.physical_therapy_weeks.value == 8
 
 
 def test_four_digit_cpt_code_is_rejected() -> None:
     with pytest.raises(InvalidModelOutput, match="CPT"):
-        validate_extraction(answer_with("procedure_code", "7214"))
+        validate_extraction_text(answer_with("procedure_code", "7214"))
 
 
 def test_badly_formed_icd10_code_is_rejected() -> None:
     with pytest.raises(InvalidModelOutput, match="ICD-10"):
-        validate_extraction(answer_with("diagnosis_codes", ["back pain"]))
+        validate_extraction_text(answer_with("diagnosis_codes", ["back pain"]))
 
 
 def test_negative_duration_is_rejected() -> None:
     with pytest.raises(InvalidModelOutput):
-        validate_extraction(answer_with("symptom_duration_weeks", -3))
+        validate_extraction_text(answer_with("symptom_duration_weeks", -3))
 
 
 def test_successful_extraction_on_first_attempt() -> None:
