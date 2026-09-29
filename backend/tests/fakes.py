@@ -59,4 +59,7 @@ def make_fake_pipeline(recorded_responses: dict[str, list[str]]) -> PipelineDepe
 
 def default_recorded_responses() -> dict[str, list[str]]:
     """Recorded answers for a straightforward case (EVAL-001)."""
-    return {"extraction": [load_recorded_response("extraction_eval_001.json")]}
+    return {
+        "extraction": [load_recorded_response("extraction_eval_001.json")],
+        "verdict": [load_recorded_response("verdict_eval_001_approved.json")],
+    }

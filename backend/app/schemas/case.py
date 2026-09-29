@@ -23,6 +23,11 @@ class CaseDetailResponse(BaseModel):
     masked_text: str | None
     extracted_fields: dict | None
     retrieved_chunks: list[dict]
+    verdict: str | None
+    verdict_reason: str | None
+    requirement_checks: list[dict]
+    citations: list[dict]
+    failed_citations: list[dict]
     review_flags: list[str]
     llm_model_name: str | None
     llm_cost_usd: float | None

@@ -2,6 +2,7 @@
 
 import logging
 import time
+from dataclasses import asdict
 
 from sqlalchemy.orm import Session
 
@@ -12,7 +13,9 @@ from app.services.extractor import extract_case_fields
 from app.services.pdf_reader import PdfReadError, read_pdf_text
 from app.services.pipeline import PipelineDependencies
 from app.services.privacy_masker import mask_private_information
+from app.services.prompt_safety import looks_like_prompt_injection
 from app.services.retriever import RetrievedChunk, retrieve_policy_chunks
+from app.services.verdict import FLAG_NO_VALID_CITATIONS, generate_verdict
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +68,10 @@ def read_and_mask(case: PriorAuthCase, pdf_bytes: bytes) -> None:
     case.masked_text = masking_result.masked_text
     case.pii_values = masking_result.pii_values
 
+    # The document is still processed; the flag makes sure a human reads it carefully.
+    if looks_like_prompt_injection(case.masked_text):
+        add_review_flag(case, "possible_prompt_injection")
+
 
 def extract_fields(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
     """Step 3: structured extraction from the MASKED text only."""
@@ -112,6 +119,39 @@ def retrieve_policy(
     return retrieved_chunks
 
 
+def decide_verdict(
+    case: PriorAuthCase, retrieved_chunks: list[RetrievedChunk], pipeline: PipelineDependencies
+) -> None:
+    """Step 5: the verdict with citations, checked in code."""
+    prompt_version = pipeline.settings.verdict_prompt_version
+    outcome = generate_verdict(
+        case.extracted_fields or {},
+        case.masked_text or "",
+        retrieved_chunks,
+        pipeline.llm_client,
+        prompt_version,
+    )
+    record_llm_usage(case, outcome.responses, pipeline)
+    record_prompt_version(case, "verdict", prompt_version)
+    for flag in outcome.flags:
+        add_review_flag(case, flag)
+    if outcome.answer is None:
+        raise StopProcessing()
+
+    case.verdict = outcome.answer.verdict
+    case.verdict_reason = outcome.answer.reason
+    requirement_checks = []
+    for requirement in outcome.answer.requirements:
+        requirement_checks.append(requirement.model_dump())
+    case.requirement_checks = requirement_checks
+    case.citations = [asdict(citation) for citation in outcome.verified_citations]
+    case.failed_citations = [asdict(citation) for citation in outcome.failed_citations]
+
+    if FLAG_NO_VALID_CITATIONS in outcome.flags:
+        # A verdict without any checkable evidence is not shown as a normal result.
+        raise StopProcessing()
+
+
 def run_pipeline(
     database_session: Session,
     case: PriorAuthCase,
@@ -125,7 +165,10 @@ def run_pipeline(
     extract_fields(case, pipeline)
     database_session.commit()
 
-    retrieve_policy(database_session, case, pipeline)
+    retrieved_chunks = retrieve_policy(database_session, case, pipeline)
+    database_session.commit()
+
+    decide_verdict(case, retrieved_chunks, pipeline)
     database_session.commit()
 
 

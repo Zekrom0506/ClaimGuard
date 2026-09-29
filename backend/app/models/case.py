@@ -50,6 +50,13 @@ class PriorAuthCase(Base):
     extracted_fields: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     # Which policy chunks the search returned: ids, sections and scores (no text).
     retrieved_chunks: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    # The AI's suggestion. Never a final decision: a reviewer always decides.
+    verdict: Mapped[str | None] = mapped_column(String(30), nullable=True, index=True)
+    verdict_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    requirement_checks: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    citations: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    failed_citations: Mapped[list | None] = mapped_column(JSON, nullable=True)
+
     # Reasons a human should look closer, e.g. "extraction_invalid".
     review_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
 

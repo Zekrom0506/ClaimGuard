@@ -50,7 +50,7 @@ def empty_tables() -> None:
     for table in Base.metadata.sorted_tables:
         table_names.append(table.name)
     with engine.begin() as connection:
-        connection.execute(text(f"TRUNCATE {', '.join(table_names)} CASCADE"))
+        connection.execute(text(f"TRUNCATE {', '.join(table_names)} RESTART IDENTITY CASCADE"))
 
 
 @pytest.fixture

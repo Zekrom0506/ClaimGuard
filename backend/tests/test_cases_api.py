@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 
 from app.core.config import get_settings
 from tests.conftest import evaluation_case_path, make_pdf_bytes
-from tests.fakes import make_fake_pipeline
+from tests.fakes import load_recorded_response, make_fake_pipeline
 
 
 def upload_pdf(client: TestClient, pdf_bytes: bytes, filename: str = "request.pdf"):
@@ -111,3 +111,46 @@ def test_unreachable_language_model_marks_case_failed(client: TestClient) -> Non
     case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
     body = client.get(f"/cases/{case_id}").json()
     assert body["status"] == "failed"
+
+
+def test_full_pipeline_returns_verdict_with_verified_citations(client: TestClient) -> None:
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["status"] == "done"
+    assert body["verdict"] == "likely_approved"
+    assert len(body["citations"]) == 2
+    assert body["citations"][0]["section_title"] == "6 Coding Information"
+    assert body["citations"][0]["chunk_text"]
+    assert len(body["retrieved_chunks"]) == 5
+    assert body["review_flags"] == []
+
+
+def test_verdict_without_valid_citations_goes_to_human_review(client: TestClient) -> None:
+    client.app.state.pipeline = make_fake_pipeline(
+        {
+            "extraction": [load_recorded_response("extraction_eval_001.json")],
+            "verdict": [load_recorded_response("verdict_hallucinated.json")],
+        }
+    )
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["status"] == "needs_human_review"
+    assert body["citations"] == []
+    assert len(body["failed_citations"]) == 2
+    assert "citation_failed" in body["review_flags"]
+
+
+def test_case_without_any_policy_loaded_goes_to_human_review(client: TestClient) -> None:
+    from sqlalchemy import text
+
+    from app.core.database import engine
+
+    with engine.begin() as connection:
+        connection.execute(text("TRUNCATE policy_chunks"))
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["status"] == "needs_human_review"
+    assert "no_policy_found" in body["review_flags"]
