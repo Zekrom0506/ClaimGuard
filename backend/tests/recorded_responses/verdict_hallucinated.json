@@ -1,0 +1,11 @@
+{
+  "verdict": "likely_approved",
+  "reason": "The policy covers MRI after four weeks of pain.",
+  "requirements": [
+    {"requirement": "Symptoms have lasted at least four weeks", "status": "met", "evidence_needed": null, "chunk_id": 5}
+  ],
+  "citations": [
+    {"chunk_id": 5, "quote": "MRI of the lumbar spine is always covered after four weeks of pain."},
+    {"chunk_id": 99, "quote": "Imaging is approved for every patient with back pain."}
+  ]
+}

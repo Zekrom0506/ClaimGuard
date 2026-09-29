@@ -1,0 +1,11 @@
+{
+  "verdict": "likely_denied",
+  "reason": "Symptoms have lasted about 16 weeks, but no physical therapy or other conservative therapy has been tried and no red flags are documented. Section 2.2 requires six weeks of conservative therapy.",
+  "requirements": [
+    {"requirement": "Symptoms have lasted at least six weeks", "status": "met", "evidence_needed": null, "chunk_id": 5},
+    {"requirement": "At least six weeks of physician-directed conservative therapy were completed", "status": "not_met", "evidence_needed": "Records of at least six weeks of physical therapy or a supervised home exercise program", "chunk_id": 5}
+  ],
+  "citations": [
+    {"chunk_id": 5, "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."}
+  ]
+}
