@@ -23,5 +23,6 @@ dist/
 # Large or generated data
 data/policies/*.pdf
 data/synthetic_cases/*.pdf
-ml/*.joblib
+ml/data/
+ml/models/
 !data/policies/sample_lumbar_mri_policy.pdf
