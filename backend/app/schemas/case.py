@@ -28,6 +28,10 @@ class CaseDetailResponse(BaseModel):
     requirement_checks: list[dict]
     citations: list[dict]
     failed_citations: list[dict]
+    denial_probability: float | None
+    risk_reasons: list[str]
+    risk_model_type: str | None
+    model_disagreement: bool | None
     review_flags: list[str]
     llm_model_name: str | None
     llm_cost_usd: float | None

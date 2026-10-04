@@ -43,8 +43,20 @@ class Settings(BaseSettings):
     retrieval_search_mode: str = "hybrid"
     spacy_model_name: str = "en_core_web_lg"
 
+    # Leave empty to use <project_root>/ml/models/denial_risk_model.joblib.
+    risk_model_path: str = ""
+    # At or above this denial probability the model is said to predict "denied".
+    risk_disagreement_threshold: float = 0.5
+
     max_upload_size_megabytes: int = 10
     uploads_per_minute_limit: int = 10
+
+    @property
+    def resolved_risk_model_path(self) -> Path:
+        """Where to load the trained risk model from."""
+        if self.risk_model_path:
+            return Path(self.risk_model_path)
+        return self.project_root / "ml" / "models" / "denial_risk_model.joblib"
 
     @property
     def max_upload_size_bytes(self) -> int:

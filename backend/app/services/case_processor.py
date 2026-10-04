@@ -89,6 +89,43 @@ def extract_fields(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
         add_review_flag(case, f"extraction_source_not_found:{field_name}")
 
 
+def score_risk(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
+    """Step 3b: denial risk from the trained model (only needs the extracted facts)."""
+    if pipeline.risk_model is None:
+        add_review_flag(case, "risk_model_unavailable")
+        return
+    prediction = pipeline.risk_model.predict(case.extracted_fields or {})
+    case.denial_probability = prediction.denial_probability
+    case.risk_reasons = prediction.top_reasons
+    case.risk_model_type = prediction.model_type
+
+
+def models_disagree(
+    verdict: str | None, denial_probability: float | None, threshold: float
+) -> bool:
+    """True when the language model and the risk model point in opposite directions.
+
+    "missing_information" is not compared: it is about paperwork, which the
+    risk model does not judge.
+    """
+    if verdict is None or denial_probability is None:
+        return False
+    if verdict == "likely_approved":
+        return denial_probability >= threshold
+    if verdict == "likely_denied":
+        return denial_probability < threshold
+    return False
+
+
+def compare_with_risk_model(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
+    """Step 6: flag cases where the two opinions disagree, so a human looks closer."""
+    case.model_disagreement = models_disagree(
+        case.verdict, case.denial_probability, pipeline.settings.risk_disagreement_threshold
+    )
+    if case.model_disagreement:
+        add_review_flag(case, "ai_and_risk_model_disagree")
+
+
 def retrieve_policy(
     database_session: Session, case: PriorAuthCase, pipeline: PipelineDependencies
 ) -> list[RetrievedChunk]:
@@ -163,12 +200,14 @@ def run_pipeline(
     database_session.commit()
 
     extract_fields(case, pipeline)
+    score_risk(case, pipeline)
     database_session.commit()
 
     retrieved_chunks = retrieve_policy(database_session, case, pipeline)
     database_session.commit()
 
     decide_verdict(case, retrieved_chunks, pipeline)
+    compare_with_risk_model(case, pipeline)
     database_session.commit()
 
 

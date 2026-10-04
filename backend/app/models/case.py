@@ -3,7 +3,7 @@
 import uuid
 from datetime import UTC, datetime
 
-from sqlalchemy import JSON, DateTime, Float, Integer, String, Text
+from sqlalchemy import JSON, Boolean, DateTime, Float, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -56,6 +56,12 @@ class PriorAuthCase(Base):
     requirement_checks: Mapped[list | None] = mapped_column(JSON, nullable=True)
     citations: Mapped[list | None] = mapped_column(JSON, nullable=True)
     failed_citations: Mapped[list | None] = mapped_column(JSON, nullable=True)
+
+    # Second opinion from the trained risk model.
+    denial_probability: Mapped[float | None] = mapped_column(Float, nullable=True)
+    risk_reasons: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    risk_model_type: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    model_disagreement: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
 
     # Reasons a human should look closer, e.g. "extraction_invalid".
     review_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)

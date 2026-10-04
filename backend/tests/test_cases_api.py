@@ -154,3 +154,43 @@ def test_case_without_any_policy_loaded_goes_to_human_review(client: TestClient)
     body = client.get(f"/cases/{case_id}").json()
     assert body["status"] == "needs_human_review"
     assert "no_policy_found" in body["review_flags"]
+
+
+def test_risk_score_and_reasons_are_returned(client: TestClient) -> None:
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["denial_probability"] < 0.5
+    assert len(body["risk_reasons"]) == 3
+    assert body["model_disagreement"] is False
+
+
+def test_disagreement_between_ai_and_risk_model_is_flagged(client: TestClient) -> None:
+    # Extraction says no therapy (high risk) but the recorded verdict says approved.
+    client.app.state.pipeline = make_fake_pipeline(
+        {
+            "extraction": [load_recorded_response("extraction_eval_033.json")],
+            "verdict": [load_recorded_response("verdict_eval_001_approved.json")],
+        }
+    )
+    pdf_bytes = evaluation_case_path("EVAL-033").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["model_disagreement"] is True
+    assert "ai_and_risk_model_disagree" in body["review_flags"]
+
+
+def test_missing_risk_model_is_flagged_but_case_still_finishes(client: TestClient) -> None:
+    client.app.state.pipeline = make_fake_pipeline(
+        {
+            "extraction": [load_recorded_response("extraction_eval_001.json")],
+            "verdict": [load_recorded_response("verdict_eval_001_approved.json")],
+        },
+        with_risk_model=False,
+    )
+    pdf_bytes = evaluation_case_path("EVAL-001").read_bytes()
+    case_id = upload_pdf(client, pdf_bytes).json()["case_id"]
+    body = client.get(f"/cases/{case_id}").json()
+    assert body["status"] == "done"
+    assert body["denial_probability"] is None
+    assert "risk_model_unavailable" in body["review_flags"]
