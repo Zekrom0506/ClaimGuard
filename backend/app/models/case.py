@@ -63,6 +63,18 @@ class PriorAuthCase(Base):
     risk_model_type: Mapped[str | None] = mapped_column(String(50), nullable=True)
     model_disagreement: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
 
+    # Next steps: a checklist for "missing_information", a letter for "likely_denied".
+    missing_info_checklist: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    # Stored WITH placeholders; real details are filled in only when shown on screen.
+    appeal_letter_draft: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    # The human decision. Only a reviewer sets final_verdict.
+    reviewer_decision: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    final_verdict: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    reviewer_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    reviewer_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
     # Reasons a human should look closer, e.g. "extraction_invalid".
     review_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
 
