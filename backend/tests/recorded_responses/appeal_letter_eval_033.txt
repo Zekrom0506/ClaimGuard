@@ -1,0 +1,14 @@
+To the Utilization Review Department,
+
+Re: Prior authorization request for MRI of the lumbar spine (CPT 72158) for [PATIENT_NAME], member [MEMBER_ID].
+
+We ask you to reconsider this request under Section 2.2, Persistent Symptoms After Conservative Therapy. The patient has had radicular low back pain for about 16 weeks. We recognise that the policy requires at least six weeks of physician-directed conservative therapy, and that this was not documented in the original request.
+
+Before resubmitting, our office will provide:
+[ADD: physical therapy or supervised home exercise records with start and end dates]
+[ADD: notes describing the response to therapy]
+
+If the patient develops any red flag condition described in Section 2.1, we will submit that documentation immediately.
+
+Sincerely,
+[PROVIDER_NAME]

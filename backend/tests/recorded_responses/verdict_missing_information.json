@@ -1,0 +1,11 @@
+{
+  "verdict": "missing_information",
+  "reason": "The request mentions physical therapy but not how many weeks it lasted, so the six-week requirement cannot be checked.",
+  "requirements": [
+    {"requirement": "The requested CPT code is covered by the policy", "status": "met", "evidence_needed": null, "chunk_id": 10},
+    {"requirement": "At least six weeks of conservative therapy were completed", "status": "unclear", "evidence_needed": "Physical therapy records showing the number of weeks completed", "chunk_id": 10}
+  ],
+  "citations": [
+    {"chunk_id": 10, "quote": "CPT codes covered by this policy: 72148, MRI lumbar spine without contrast; 72149, MRI lumbar spine with contrast"}
+  ]
+}
