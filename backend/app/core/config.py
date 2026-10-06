@@ -37,6 +37,7 @@ class Settings(BaseSettings):
 
     extraction_prompt_version: str = "v1"
     verdict_prompt_version: str = "v1"
+    appeal_letter_prompt_version: str = "v1"
 
     embedding_model_name: str = "BAAI/bge-small-en-v1.5"
     # "hybrid" (vector + keyword) or "vector" (used by the evaluation comparison).

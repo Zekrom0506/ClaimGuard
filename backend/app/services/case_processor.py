@@ -8,8 +8,11 @@ from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
 from app.core.llm_client import LLMError, LLMResponse, calculate_cost_usd
+from app.models.audit_log import AuditEventType
 from app.models.case import CaseStatus, PriorAuthCase
+from app.services.audit_log import record_event
 from app.services.extractor import extract_case_fields
+from app.services.next_steps import build_missing_information_checklist, draft_appeal_letter
 from app.services.pdf_reader import PdfReadError, read_pdf_text
 from app.services.pipeline import PipelineDependencies
 from app.services.privacy_masker import mask_private_information
@@ -189,6 +192,34 @@ def decide_verdict(
         raise StopProcessing()
 
 
+def prepare_next_steps(case: PriorAuthCase, pipeline: PipelineDependencies) -> None:
+    """Step 7: checklist of missing documents, or a draft appeal letter."""
+    if case.verdict == "missing_information":
+        case.missing_info_checklist = build_missing_information_checklist(
+            case.requirement_checks or [], case.retrieved_chunks or []
+        )
+        return
+
+    if case.verdict == "likely_denied":
+        prompt_version = pipeline.settings.appeal_letter_prompt_version
+        try:
+            response = draft_appeal_letter(
+                case.extracted_fields or {},
+                case.verdict_reason or "",
+                case.requirement_checks or [],
+                case.citations or [],
+                pipeline.llm_client,
+                prompt_version,
+            )
+        except LLMError:
+            # The verdict is still useful without a letter.
+            add_review_flag(case, "appeal_letter_failed")
+            return
+        record_llm_usage(case, [response], pipeline)
+        record_prompt_version(case, "appeal_letter", prompt_version)
+        case.appeal_letter_draft = response.text.strip()
+
+
 def run_pipeline(
     database_session: Session,
     case: PriorAuthCase,
@@ -208,6 +239,9 @@ def run_pipeline(
 
     decide_verdict(case, retrieved_chunks, pipeline)
     compare_with_risk_model(case, pipeline)
+    database_session.commit()
+
+    prepare_next_steps(case, pipeline)
     database_session.commit()
 
 
@@ -247,6 +281,7 @@ def process_case(case_id: str, pdf_bytes: bytes, pipeline: PipelineDependencies)
 
         case.processing_seconds = round(time.perf_counter() - started_at, 2)
         set_status(database_session, case, final_status)
+        record_event(database_session, case, AuditEventType.PROCESSING_FINISHED)
         logger.info("Case %s finished with status %s", case_id, final_status)
     finally:
         database_session.close()

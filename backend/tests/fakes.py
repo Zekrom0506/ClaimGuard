@@ -112,4 +112,5 @@ def default_recorded_responses() -> dict[str, list[str]]:
     return {
         "extraction": [load_recorded_response("extraction_eval_001.json")],
         "verdict": [load_recorded_response("verdict_eval_001_approved.json")],
+        "appeal_letter": [load_recorded_response("appeal_letter_eval_033.txt")],
     }

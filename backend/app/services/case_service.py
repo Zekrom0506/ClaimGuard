@@ -1,10 +1,13 @@
 """Creating, validating and loading cases."""
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.core.errors import AppError
+from app.models.audit_log import AuditEventType
 from app.models.case import CaseStatus, PriorAuthCase
+from app.services.audit_log import record_event
 
 PDF_FILE_SIGNATURE = b"%PDF-"
 
@@ -31,7 +34,14 @@ def create_case(database_session: Session, filename: str) -> PriorAuthCase:
     database_session.add(new_case)
     database_session.commit()
     database_session.refresh(new_case)
+    record_event(database_session, new_case, AuditEventType.UPLOADED)
     return new_case
+
+
+def list_cases(database_session: Session, limit: int) -> list[PriorAuthCase]:
+    """Most recent cases first."""
+    statement = select(PriorAuthCase).order_by(PriorAuthCase.created_at.desc()).limit(limit)
+    return list(database_session.scalars(statement))
 
 
 def get_case_or_404(database_session: Session, case_id: str) -> PriorAuthCase:
