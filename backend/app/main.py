@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api import cases, health, review
+from app.api import cases, dashboard, evaluation, health, review
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
 from app.core.logging_config import configure_logging
@@ -37,6 +37,8 @@ def create_app() -> FastAPI:
     application.include_router(health.router)
     application.include_router(cases.router)
     application.include_router(review.router)
+    application.include_router(dashboard.router)
+    application.include_router(evaluation.router)
 
     @application.get("/")
     def root() -> dict[str, str]:

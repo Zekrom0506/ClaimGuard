@@ -60,6 +60,11 @@ class Settings(BaseSettings):
         return self.project_root / "ml" / "models" / "denial_risk_model.joblib"
 
     @property
+    def evaluation_reports_directory(self) -> Path:
+        """Where evaluation/run_evaluation.py saves its reports."""
+        return self.project_root / "evaluation" / "reports"
+
+    @property
     def max_upload_size_bytes(self) -> int:
         """Upload limit converted to bytes."""
         return self.max_upload_size_megabytes * 1024 * 1024
