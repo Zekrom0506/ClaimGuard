@@ -32,6 +32,15 @@ services:
       # Inside Docker the services find each other by name, not localhost.
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
       REDIS_URL: redis://redis:6379/0
+      # The backend reads data, the trained model and evaluation reports from here.
+      PROJECT_ROOT: /project
+      BACKEND_PATH: /app
+    volumes:
+      - ./data:/project/data
+      - ./ml:/project/ml
+      - ./evaluation:/project/evaluation
+      - ./scripts:/project/scripts
+      - model_cache:/root/.cache/huggingface
     ports:
       - "8000:8000"
     depends_on:
@@ -40,5 +49,13 @@ services:
       redis:
         condition: service_healthy
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
 volumes:
   postgres_data:
+  model_cache:
