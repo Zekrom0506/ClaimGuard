@@ -163,6 +163,63 @@ def mean_reciprocal_rank(
     return round(reciprocal_ranks_total / len(expected_sections), 4)
 
 
+def compare_llm_with_risk_model(
+    expected_verdicts: list[str],
+    predicted_verdicts: list[str | None],
+    denial_probabilities: list[float | None],
+    disagreement_flags: list[bool | None],
+    threshold: float = 0.5,
+) -> dict:
+    """How much the risk model adds next to the language model.
+
+    The risk model only says "likely denied or not", so both are compared on
+    that yes/no question. The most useful number is how many of the language
+    model's mistakes were caught by a disagreement flag and sent to a human.
+    """
+    llm_correct_count = 0
+    risk_model_correct_count = 0
+    scored_count = 0
+    llm_mistake_count = 0
+    caught_mistake_count = 0
+    agree_count = 0
+    correct_when_agree_count = 0
+
+    for expected, predicted, probability, disagrees in zip(
+        expected_verdicts, predicted_verdicts, denial_probabilities, disagreement_flags, strict=True
+    ):
+        if predicted != expected:
+            llm_mistake_count += 1
+            if disagrees:
+                caught_mistake_count += 1
+        if probability is None:
+            continue
+
+        scored_count += 1
+        expected_approved = expected == "likely_approved"
+        if (predicted == "likely_approved") == expected_approved:
+            llm_correct_count += 1
+        if (probability < threshold) == expected_approved:
+            risk_model_correct_count += 1
+        if not disagrees:
+            agree_count += 1
+            if predicted == expected:
+                correct_when_agree_count += 1
+
+    def share(part: int, whole: int) -> float | None:
+        if whole == 0:
+            return None
+        return round(part / whole, 4)
+
+    return {
+        "llm_approved_vs_not_accuracy": share(llm_correct_count, scored_count),
+        "risk_model_approved_vs_not_accuracy": share(risk_model_correct_count, scored_count),
+        "disagreement_rate": share(scored_count - agree_count, scored_count),
+        "llm_verdict_accuracy_when_models_agree": share(correct_when_agree_count, agree_count),
+        "llm_mistakes": llm_mistake_count,
+        "llm_mistakes_flagged_by_disagreement": caught_mistake_count,
+    }
+
+
 def average(values: list[float]) -> float | None:
     """Mean of a list, or None if it is empty."""
     if not values:

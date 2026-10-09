@@ -37,6 +37,7 @@ from app.services.case_processor import StopProcessing, run_pipeline  # noqa: E4
 from app.services.embeddings import SentenceTransformerEmbedder  # noqa: E402
 from app.services.pipeline import PipelineDependencies  # noqa: E402
 from app.services.retriever import retrieve_policy_chunks  # noqa: E402
+from app.services.risk_model import DenialRiskModel  # noqa: E402
 
 LABELS_FILE = REPOSITORY_ROOT / "data" / "evaluation" / "labels.json"
 REPORTS_DIRECTORY = REPOSITORY_ROOT / "evaluation" / "reports"
@@ -162,6 +163,8 @@ def run_one_case(labelled_case: dict, pipeline: PipelineDependencies) -> dict:
         "failed_citation_count": len(case.failed_citations or []),
         "extracted_fields": case.extracted_fields,
         "review_flags": case.review_flags or [],
+        "denial_probability": case.denial_probability,
+        "model_disagreement": case.model_disagreement,
         "leaked_identity_fields": leaked_fields,
         "seconds": seconds,
         "cost_usd": case.llm_cost_usd or 0.0,
@@ -183,6 +186,8 @@ def summarise_full_run(labelled_cases: list[dict], case_results: list[dict]) -> 
     leak_count = 0
     seconds_per_case = []
     cost_per_case = []
+    denial_probabilities = []
+    disagreement_flags = []
 
     for labelled_case, result in zip(labelled_cases, case_results, strict=True):
         expected_verdicts.append(result["expected_verdict"])
@@ -197,6 +202,8 @@ def summarise_full_run(labelled_cases: list[dict], case_results: list[dict]) -> 
         leak_count += len(result["leaked_identity_fields"])
         seconds_per_case.append(result["seconds"])
         cost_per_case.append(result["cost_usd"])
+        denial_probabilities.append(result["denial_probability"])
+        disagreement_flags.append(result["model_disagreement"])
 
     return {
         "verdict_accuracy": metrics.accuracy(expected_verdicts, predicted_verdicts),
@@ -217,6 +224,9 @@ def summarise_full_run(labelled_cases: list[dict], case_results: list[dict]) -> 
         "privacy_leaks": leak_count,
         "average_seconds_per_case": metrics.average(seconds_per_case),
         "average_cost_usd_per_case": metrics.average(cost_per_case),
+        "llm_vs_risk_model": metrics.compare_llm_with_risk_model(
+            expected_verdicts, predicted_verdicts, denial_probabilities, disagreement_flags
+        ),
     }
 
 
@@ -227,6 +237,7 @@ def evaluate_full(labelled_cases: list[dict], search_mode: str, embedder) -> dic
         settings=settings,
         llm_client=RecordingLLMClient(create_llm_client(settings)),
         embedder=embedder,
+        risk_model=DenialRiskModel.load(settings.resolved_risk_model_path),
     )
     case_results = []
     for case_number, labelled_case in enumerate(labelled_cases, start=1):
@@ -253,7 +264,7 @@ def format_number(value: object) -> str:
     """Show ratios as percentages and leave everything else as it is."""
     if value is None:
         return "n/a"
-    if isinstance(value, float) and value <= 1.0:
+    if isinstance(value, float) and 0.0 <= value <= 1.0:
         return f"{value * 100:.1f}%"
     return str(value)
 
@@ -281,6 +292,12 @@ def render_markdown(report: dict) -> str:
             lines.append("|---|---|")
             for field_name, value in run["extraction_accuracy_by_field"].items():
                 lines.append(f"| {field_name} | {format_number(value)} |")
+        if "llm_vs_risk_model" in run:
+            lines.append("")
+            lines.append("| Language model vs risk model | Value |")
+            lines.append("|---|---|")
+            for metric_name, value in run["llm_vs_risk_model"].items():
+                lines.append(f"| {metric_name} | {format_number(value)} |")
         if "confusion_matrix" in run:
             lines.append("")
             lines.append("Confusion matrix (rows = correct answer, columns = ClaimGuard):")

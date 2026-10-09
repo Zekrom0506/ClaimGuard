@@ -3,6 +3,7 @@
 from evaluation.metrics import (
     accuracy,
     citation_section_accuracy,
+    compare_llm_with_risk_model,
     confusion_matrix,
     extraction_accuracy_by_field,
     field_is_correct,
@@ -84,3 +85,19 @@ def test_recall_and_mrr() -> None:
     assert recall_at_k(["2.2", "3"], retrieved) == 0.5
     # Case one finds it at position 2 (1/2), case two never (0): average 0.25.
     assert mean_reciprocal_rank(["2.2", "3"], retrieved) == 0.25
+
+
+def test_llm_and_risk_model_comparison() -> None:
+    comparison = compare_llm_with_risk_model(
+        expected_verdicts=["likely_approved", "likely_denied", "likely_denied", "likely_approved"],
+        predicted_verdicts=["likely_approved", "likely_approved", "likely_denied", None],
+        denial_probabilities=[0.1, 0.9, 0.8, None],
+        disagreement_flags=[False, True, False, False],
+    )
+    # Case 2 is a language model mistake that the disagreement flag caught.
+    assert comparison["llm_mistakes"] == 2
+    assert comparison["llm_mistakes_flagged_by_disagreement"] == 1
+    assert comparison["risk_model_approved_vs_not_accuracy"] == 1.0
+    assert comparison["llm_approved_vs_not_accuracy"] == round(2 / 3, 4)
+    assert comparison["disagreement_rate"] == round(1 / 3, 4)
+    assert comparison["llm_verdict_accuracy_when_models_agree"] == 1.0
