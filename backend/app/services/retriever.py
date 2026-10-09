@@ -48,16 +48,11 @@ def build_case_summary(extracted_fields: dict) -> str:
     """Describe the case in plain sentences for vector search.
 
     Built from the extracted (already masked) fields, never the raw document.
+    Codes are left out on purpose: to an embedding model "M54.16" is just
+    characters, and in our evaluation including them pulled the coding table
+    above the sections that actually decide the case. Codes go to keyword search.
     """
-    sentences = ["Lumbar spine MRI prior authorization request."]
-
-    procedure_code = extracted_fields["procedure_code"]["value"]
-    if procedure_code:
-        sentences.append(f"CPT code {procedure_code}.")
-
-    diagnosis_codes = extracted_fields["diagnosis_codes"]["value"]
-    if diagnosis_codes:
-        sentences.append(f"Diagnosis codes {', '.join(diagnosis_codes)}.")
+    sentences = ["When is MRI of the lumbar spine medically necessary?"]
 
     symptom_weeks = extracted_fields["symptom_duration_weeks"]["value"]
     if symptom_weeks is None:
@@ -88,8 +83,12 @@ def build_case_summary(extracted_fields: dict) -> str:
 
 
 def build_keyword_terms(extracted_fields: dict) -> list[str]:
-    """Words and codes worth matching exactly."""
-    keyword_terms = ["lumbar", "MRI"]
+    """Words and codes worth matching exactly.
+
+    Words that appear in nearly every chunk ("lumbar", "MRI") are left out:
+    they match everything, so they only add noise to the ranking.
+    """
+    keyword_terms = []
     procedure_code = extracted_fields["procedure_code"]["value"]
     if procedure_code:
         keyword_terms.append(procedure_code)
