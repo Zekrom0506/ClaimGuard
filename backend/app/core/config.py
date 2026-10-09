@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     project_root: Path = DEFAULT_PROJECT_ROOT
 
     llm_provider: str = "anthropic"
-    llm_model_name: str = "claude-sonnet-5"
+    llm_model_name: str = "claude-sonnet-5-5"
     anthropic_api_key: str = ""
     ollama_base_url: str = "http://localhost:11434"
     # USD per million tokens, used to estimate cost per case. Check current pricing.
