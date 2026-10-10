@@ -1,0 +1,22 @@
+# Production overrides for one server: only the frontend is reachable, and only
+# from the host's Nginx (which adds HTTPS). Use with:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+services:
+  database:
+    ports: !reset []
+    restart: unless-stopped
+
+  redis:
+    ports: !reset []
+    restart: unless-stopped
+
+  api:
+    ports: !reset []
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+
+  frontend:
+    ports: !override
+      - "127.0.0.1:3000:80"
+    restart: unless-stopped
