@@ -16,7 +16,11 @@ class Settings(BaseSettings):
     secrets ever live in the code.
     """
 
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    # Reads the repository's .env even when commands run from backend/.
+    # Real environment variables (e.g. from Docker Compose) always win over the file.
+    model_config = SettingsConfigDict(
+        env_file=(DEFAULT_PROJECT_ROOT / ".env", ".env"), extra="ignore"
+    )
 
     app_name: str = "ClaimGuard"
     environment: str = "development"
