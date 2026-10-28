@@ -13,6 +13,8 @@ import httpx
 
 from app.core.config import Settings
 
+OLLAMA_CONTEXT_TOKENS = 8192
+
 
 class LLMError(Exception):
     """The language model could not be reached or returned nothing usable."""
@@ -121,7 +123,9 @@ class OllamaLLMClient(LLMClient):
         request_body = {
             "model": self.model_name,
             "stream": False,
-            "options": {"num_predict": max_output_tokens},
+            # Ollama's default context window can be as small as 2048 tokens and it
+            # silently drops anything beyond it; the verdict prompt alone is ~1,800.
+            "options": {"num_predict": max_output_tokens, "num_ctx": OLLAMA_CONTEXT_TOKENS},
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},

@@ -42,6 +42,7 @@ def test_ollama_client_reads_message_and_token_counts(monkeypatch) -> None:
     def fake_post(url, json, timeout):
         assert url == "http://ollama:11434/api/chat"
         assert json["messages"][0]["role"] == "system"
+        assert json["options"]["num_ctx"] >= 8192
         request = httpx.Request("POST", url)
         body = {"message": {"content": "{}"}, "prompt_eval_count": 50, "eval_count": 5}
         return httpx.Response(200, json=body, request=request)

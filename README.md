@@ -239,6 +239,28 @@ cd backend && uvicorn app.main:app --reload
 cd frontend && npm install && npm run dev       # http://localhost:5173
 ```
 
+### With a free local model (Ollama)
+
+No API key needed. Install [Ollama](https://ollama.com), then:
+
+```bash
+ollama pull llama3.1
+```
+
+In `.env`:
+
+```
+LLM_PROVIDER=ollama
+LLM_MODEL_NAME=llama3.1
+OLLAMA_BASE_URL=http://host.docker.internal:11434
+LLM_INPUT_PRICE_PER_MILLION_TOKENS=0
+LLM_OUTPUT_PRICE_PER_MILLION_TOKENS=0
+```
+
+`host.docker.internal` lets the API container reach Ollama on your computer. The prices are
+set to 0 so the evaluation does not report Claude prices for a free model. A small local model
+is slower and usually less accurate than Claude, so label its results with the model name.
+
 ### Tests
 
 ```bash
