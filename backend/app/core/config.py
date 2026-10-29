@@ -35,6 +35,11 @@ class Settings(BaseSettings):
     llm_model_name: str = "claude-sonnet-5-5"
     anthropic_api_key: str = ""
     ollama_base_url: str = "http://localhost:11434"
+    # Any OpenAI-style chat API (LLM_PROVIDER=openai_compatible). Groq's free tier by default.
+    openai_compatible_base_url: str = "https://api.groq.com/openai/v1"
+    openai_compatible_api_key: str = ""
+    # Optional, sent only when set: "none" turns off Qwen3's thinking on Groq.
+    llm_reasoning_effort: str = ""
     # USD per million tokens, used to estimate cost per case. Check current pricing.
     llm_input_price_per_million_tokens: float = 2.0
     llm_output_price_per_million_tokens: float = 10.0

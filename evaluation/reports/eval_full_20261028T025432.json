@@ -1,0 +1,3652 @@
+{
+  "run_at": "2026-10-28T02:54:32",
+  "mode": "full",
+  "case_count": 40,
+  "data": "SYNTHETIC",
+  "runs": [
+    {
+      "verdict_accuracy": 0.375,
+      "confusion_matrix": {
+        "likely_approved": {
+          "likely_approved": 4,
+          "missing_information": 0,
+          "likely_denied": 10,
+          "none": 0
+        },
+        "missing_information": {
+          "likely_approved": 6,
+          "missing_information": 0,
+          "likely_denied": 5,
+          "none": 1
+        },
+        "likely_denied": {
+          "likely_approved": 3,
+          "missing_information": 0,
+          "likely_denied": 11,
+          "none": 0
+        }
+      },
+      "citation_section_accuracy": 0.425,
+      "retrieval_recall_at_5": 0.725,
+      "extraction_accuracy_by_field": {
+        "patient_age": 1.0,
+        "procedure_code": 1.0,
+        "diagnosis_codes": 1.0,
+        "symptom_duration_weeks": 0.95,
+        "physical_therapy_weeks": 1.0,
+        "red_flags_present": 0.65,
+        "prior_lumbar_mri_within_12_months": 0.975,
+        "neurological_exam_documented": 1.0,
+        "requesting_specialty": 1.0
+      },
+      "hallucination_rate": 0.0405,
+      "total_citations": 74,
+      "privacy_leaks": 0,
+      "average_seconds_per_case": 60.8528,
+      "average_cost_usd_per_case": 0.0,
+      "llm_vs_risk_model": {
+        "llm_approved_vs_not_accuracy": 0.525,
+        "risk_model_approved_vs_not_accuracy": 0.7,
+        "disagreement_rate": 0.475,
+        "llm_verdict_accuracy_when_models_agree": 0.5238,
+        "llm_mistakes": 25,
+        "llm_mistakes_flagged_by_disagreement": 15
+      },
+      "search_mode": "hybrid",
+      "model_name": "llama3.1",
+      "prompt_versions": {
+        "extraction": "v1",
+        "verdict": "v1"
+      },
+      "cases": [
+        {
+          "case_id": "EVAL-001",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "5 Repeat Imaging",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions:",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 53.0,
+              "source_sentence": "Age: 53 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M48.061"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M48.061"
+            },
+            "symptom_duration_weeks": {
+              "value": 9.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 9 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "[PATIENT_NAME] is requesting an MRI lumbar spine due to low back pain radiating to the left leg for 9 weeks, with no relief after 8 weeks of physical therapy."
+          },
+          "review_flags": [],
+          "denial_probability": 0.052,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 55.51,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-002",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 78.0,
+              "source_sentence": "Age: 78 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M48.061"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M48.061"
+            },
+            "symptom_duration_weeks": {
+              "value": 9.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 9 weeks,"
+            },
+            "physical_therapy_weeks": {
+              "value": 7.0,
+              "source_sentence": "The patient completed 7 weeks of physical therapy with a home exercise program,"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurosurgery",
+              "source_sentence": "Specialty: Neurosurgery"
+            },
+            "clinical_summary": "Patient has had lower back pain with right-sided sciatica for 9 weeks despite physical therapy and medication, neurological examination is normal."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0873,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 64.81,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-003",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 43.0,
+              "source_sentence": "Age: 43 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 12.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 3 months."
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "The patient has had low back pain radiating to the left leg for 3 months. They tried physical therapy and medication but got no adequate relief."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.1649,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 102.76,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-004",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 36.0,
+              "source_sentence": "Age: 36 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 4 months."
+            },
+            "physical_therapy_weeks": {
+              "value": 7.0,
+              "source_sentence": "The patient completed 7 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "The patient has low back pain radiating to the left leg with a duration of 4 months. They have tried physical therapy and ibuprofen for relief."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.1022,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 65.76,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-005",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 70.0,
+              "source_sentence": "Age: 70 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M48.061"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M48.061"
+            },
+            "symptom_duration_weeks": {
+              "value": 8.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 2 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 6.0,
+              "source_sentence": "The patient completed 6 weeks of physical therapy with a home exercise program,"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "home exercise program"
+              ],
+              "source_sentence": "The patient completed 6 weeks of physical therapy with a home exercise program,"
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient has had lower back pain with right-sided sciatica for 2 months, without improvement after 6 weeks of physical therapy."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.2581,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 60.85,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-006",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 34.0,
+              "source_sentence": "Age: 34 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M48.061"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M48.061"
+            },
+            "symptom_duration_weeks": {
+              "value": 12.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 3 months."
+            },
+            "physical_therapy_weeks": {
+              "value": 6.0,
+              "source_sentence": "The patient completed 6 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "home exercise program"
+              ],
+              "source_sentence": "The patient completed 6 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurosurgery",
+              "source_sentence": "Specialty: Neurosurgery"
+            },
+            "clinical_summary": "Patient reports low back pain radiating to the left leg for 3 months, despite completing 6 weeks of physical therapy."
+          },
+          "review_flags": [],
+          "denial_probability": 0.3724,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 48.88,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-007",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care,",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 1,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 65.0,
+              "source_sentence": "Age: 65 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 4 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "home exercise program"
+              ],
+              "source_sentence": "completed 8 weeks of physical therapy with a home exercise program,"
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "Patient has lower back pain with right-sided sciatica lasting 16 weeks without improvement after physical therapy."
+          },
+          "review_flags": [
+            "citation_failed",
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0581,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 64.81,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-008",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 25.0,
+              "source_sentence": "Age: 25 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 9.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 9 weeks,"
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy with a home exercise program,"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurosurgery",
+              "source_sentence": "Specialty: Neurosurgery"
+            },
+            "clinical_summary": "Patient has had lower back pain with right-sided sciatica for 9 weeks without improvement despite 8 weeks of physical therapy and partial relief from ibuprofen."
+          },
+          "review_flags": [
+            "extraction_source_not_found:red_flags",
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.1573,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 58.34,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-009",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 25.0,
+              "source_sentence": "Age: 25 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "G83.4"
+              ],
+              "source_sentence": "Diagnosis Codes: G83.4"
+            },
+            "symptom_duration_weeks": {
+              "value": 2.0,
+              "source_sentence": "[PATIENT_NAME] presents with low back pain for 2 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "urinary retention",
+                "numbness in the saddle area"
+              ],
+              "source_sentence": "[PATIENT_NAME] presents with low back pain for 2 weeks. Today the patient reports new urinary retention since yesterday and numbness in the saddle area."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "[PATIENT_NAME] presents with low back pain for 2 weeks. Today the patient reports new urinary retention since yesterday and numbness in the saddle area."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0261,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 64.45,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-010",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.1 Red Flag Conditions",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions:",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 54.0,
+              "source_sentence": "Age: 54 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17"
+            },
+            "symptom_duration_weeks": {
+              "value": null,
+              "source_sentence": null
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "worsening right foot drop",
+                "reduced ankle dorsiflexion strength"
+              ],
+              "source_sentence": "Today the patient reports worsening right foot drop over the last five days, with ankle dorsiflexion strength falling from 4/5 to 2/5."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: right ankle dorsiflexion 2/5, reduced right ankle reflex, reduced sensation over the right foot."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "Patient presents with low back pain and worsening right foot drop over the last five days. Neurological examination shows reduced ankle dorsiflexion strength, reflex, and sensation on the right side."
+          },
+          "review_flags": [],
+          "denial_probability": 0.1458,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 38.09,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-011",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 65.0,
+              "source_sentence": "Age: 65 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "C79.51"
+              ],
+              "source_sentence": "Diagnosis Codes: C79.51"
+            },
+            "symptom_duration_weeks": {
+              "value": 1.0,
+              "source_sentence": "low back pain for 1 week"
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "new constant back pain that is worse at night",
+                "unexplained weight loss of 6 kg."
+              ],
+              "source_sentence": "Today the patient reports a history of breast cancer treated in 2019, new constant back pain that is worse at night, and unexplained weight loss of 6 kg."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "The patient is a 65-year-old woman with low back pain for 1 week, worsened at night and accompanied by unexplained weight loss. She has no history of previous lumbar spine imaging."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.1581,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 54.47,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-012",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "4 Documentation Requirements"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions:",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 37.0,
+              "source_sentence": "Age: 37 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 3.0,
+              "source_sentence": "[PATIENT_NAME] presents with low back pain for 3 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "fever of 38.9 C with severe back pain",
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "[PATIENT_NAME] presents with low back pain for 3 weeks, accompanied by fever and positive straight leg raise test on the left. This has occurred three weeks after a lumbar epidural injection."
+          },
+          "review_flags": [],
+          "denial_probability": 0.0742,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 41.39,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-013",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 28.0,
+              "source_sentence": "Age: 28 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "S32.009A"
+              ],
+              "source_sentence": "Diagnosis Codes: S32.009A"
+            },
+            "symptom_duration_weeks": {
+              "value": 2.0,
+              "source_sentence": "[PATIENT_NAME] presents with low back pain for 2 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "patient on long-term prednisone",
+                "fall from a ladder"
+              ],
+              "source_sentence": "Today the patient reports sudden severe back pain after a fall from a ladder, in a patient on long-term prednisone for asthma."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurosurgery",
+              "source_sentence": "Specialty: Neurosurgery"
+            },
+            "clinical_summary": "[PATIENT_NAME] presents with low back pain for 2 weeks. Today the patient reports sudden severe back pain after a fall from a ladder, in a patient on long-term prednisone for asthma."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0473,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 53.4,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-014",
+          "expected_verdict": "likely_approved",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "When a red flag condition is documented, the duration of symptoms is not a requirement.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 38.0,
+              "source_sentence": "Age: 38 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "G83.4"
+              ],
+              "source_sentence": "Diagnosis Codes: G83.4"
+            },
+            "symptom_duration_weeks": {
+              "value": 2.0,
+              "source_sentence": "[PATIENT_NAME] presents with low back pain for 2 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "urinary retention",
+                "numbness in the saddle area"
+              ],
+              "source_sentence": "[PATIENT_NAME] presents with low back pain for 2 weeks. Today the patient reports new urinary retention since yesterday and numbness in the saddle area."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "A 38-year-old patient with low back pain and new urinary retention and numbness in the saddle area for 2 weeks. The patient has not tried physical therapy."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0681,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 67.13,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-015",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose",
+            "2.1 Red Flag Conditions"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 64.0,
+              "source_sentence": "Age: 64 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 8.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 2 months."
+            },
+            "physical_therapy_weeks": {
+              "value": null,
+              "source_sentence": ""
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "physical therapy sessions"
+              ],
+              "source_sentence": "The patient has attended physical therapy sessions."
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "The patient has low back pain radiating to the left leg for 2 months. The pain is worse with sitting."
+          },
+          "review_flags": [
+            "extraction_source_not_found:physical_therapy_weeks",
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.1583,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 64.35,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-016",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 58.0,
+              "source_sentence": "Age: 58 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17"
+            },
+            "symptom_duration_weeks": {
+              "value": 8.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 2 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": null,
+              "source_sentence": "The patient has attended physical therapy sessions."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient has lower back pain with right-sided sciatica for 2 months, without improvement. Physical therapy sessions have been attended."
+          },
+          "review_flags": [
+            "extraction_source_not_found:other_conservative_treatments",
+            "extraction_source_not_found:red_flags",
+            "verdict_inconsistent_with_requirements",
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.8514,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 43.89,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-017",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 68.0,
+              "source_sentence": "Age: 68 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 12.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 3 months."
+            },
+            "physical_therapy_weeks": {
+              "value": null,
+              "source_sentence": "The patient has attended physical therapy sessions."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Physical Therapy"
+              ],
+              "source_sentence": "The patient has attended physical therapy sessions."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "Patient is a 68-year-old with low back pain radiating to the left leg for 3 months. The patient has attended physical therapy sessions, but no previous lumbar spine imaging was performed."
+          },
+          "review_flags": [
+            "extraction_source_not_found:red_flags"
+          ],
+          "denial_probability": 0.876,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 56.7,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-018",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 8,
+              "quote": "The request must include the following information, or it cannot be reviewed and will be returned for additional information.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "4 Documentation Requirements",
+              "page_number": 2,
+              "chunk_text": "The request must include the following information, or it cannot be reviewed and will be returned for additional information. The duration of current symptoms, stated in days, weeks or months. A description of the conservative therapy completed, including the type of therapy and how many weeks it lasted. The findings of a neurological examination, including strength, reflexes and sensation in the lower limbs. The ICD-10 diagnosis code or codes that support the request. The date and result of any previous lumbar spine imaging. A request that is missing any of these items is returned to the provider as incomplete rather than denied."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 51.0,
+              "source_sentence": "Age: 51 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17"
+            },
+            "symptom_duration_weeks": {
+              "value": 10.0,
+              "source_sentence": "for 10 weeks,"
+            },
+            "physical_therapy_weeks": {
+              "value": null,
+              "source_sentence": "The patient has attended physical therapy sessions."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "Patient has lower back pain with right-sided sciatica for 10 weeks without improvement. Patient has attended physical therapy sessions."
+          },
+          "review_flags": [
+            "extraction_source_not_found:other_conservative_treatments",
+            "extraction_source_not_found:red_flags"
+          ],
+          "denial_probability": 0.8963,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 65.63,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-019",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 54.0,
+              "source_sentence": "Age: 54 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17"
+            },
+            "symptom_duration_weeks": {
+              "value": 12.0,
+              "source_sentence": "has had lower back pain with right-sided sciatica for 3 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": null,
+              "source_sentence": "The patient has attended physical therapy sessions."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "lower back pain"
+              ],
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 3 months,"
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient [PATIENT_NAME] has lower back pain with right-sided sciatica for 3 months, without improvement. The patient has attended physical therapy sessions."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.8944,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 44.42,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-020",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions:",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 35.0,
+              "source_sentence": "Age: 35 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": null,
+              "source_sentence": null
+            },
+            "physical_therapy_weeks": {
+              "value": 6.0,
+              "source_sentence": "The patient completed 6 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "Patient reports low back pain radiating into the left leg. Pain is described as aching and worse with prolonged sitting."
+          },
+          "review_flags": [],
+          "denial_probability": 0.1784,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 54.62,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-021",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 78.0,
+              "source_sentence": "Age: 78 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17"
+            },
+            "symptom_duration_weeks": {
+              "value": null,
+              "source_sentence": null
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy"
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: ..."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "The patient has low back pain radiating into the left leg, which worsens with prolonged sitting. The pain has not responded to 8 weeks of physical therapy."
+          },
+          "review_flags": [],
+          "denial_probability": 0.8192,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 65.74,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-022",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions...",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 45.0,
+              "source_sentence": "Age: 45 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": null,
+              "source_sentence": null
+            },
+            "physical_therapy_weeks": {
+              "value": 6.0,
+              "source_sentence": "The patient completed 6 weeks of physical therapy with a home exercise program,"
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "The patient reports low back pain radiating into the left leg, which worsens with prolonged sitting. Six weeks of physical therapy did not provide adequate relief."
+          },
+          "review_flags": [],
+          "denial_probability": 0.2113,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 45.58,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-023",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 79.0,
+              "source_sentence": "Age: 79 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17"
+            },
+            "symptom_duration_weeks": {
+              "value": null,
+              "source_sentence": null
+            },
+            "physical_therapy_weeks": {
+              "value": 6.0,
+              "source_sentence": "The patient completed 6 weeks of physical therapy..."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: ..."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "Patient reports low back pain radiating into the left leg. The patient completed 6 weeks of physical therapy with a home exercise program, without adequate relief."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.3153,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 68.61,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-024",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": null,
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "6 Coding Information",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions"
+          ],
+          "verified_citations": [],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 40.0,
+              "source_sentence": "Age: 40 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 4 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": false,
+              "source_sentence": "Neurological examination: not recorded for this visit."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "Patient has lower back pain with right-sided sciatica for 4 months, with partial relief from ibuprofen. Physical therapy was tried without adequate relief."
+          },
+          "review_flags": [
+            "verdict_invalid"
+          ],
+          "denial_probability": 0.8713,
+          "model_disagreement": null,
+          "leaked_identity_fields": [],
+          "seconds": 73.22,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-025",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "6 Coding Information",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care,",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 29.0,
+              "source_sentence": "Age: 29 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 9.0,
+              "source_sentence": "for 9 weeks"
+            },
+            "physical_therapy_weeks": {
+              "value": 7.0,
+              "source_sentence": "completed 7 weeks of physical therapy"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "without adequate relief. Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": false,
+              "source_sentence": "Neurological examination: not recorded for this visit."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "Patient reports low back pain radiating to the left leg for 9 weeks. Pain is worse with sitting. The patient completed physical therapy and medication, without adequate relief."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.688,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 62.47,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-026",
+          "expected_verdict": "missing_information",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "6 Coding Information",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 56.0,
+              "source_sentence": "Age: 56 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 8.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 2 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 6.0,
+              "source_sentence": "The patient completed 6 weeks of physical therapy"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": false,
+              "source_sentence": "Neurological examination: not recorded for this visit."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurosurgery",
+              "source_sentence": "Specialty: Neurosurgery"
+            },
+            "clinical_summary": "Patient has had lower back pain with right-sided sciatica for 2 months without improvement, despite physical therapy and medication."
+          },
+          "review_flags": [],
+          "denial_probability": 0.4044,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 45.9,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-027",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 2,
+              "quote": "Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "1 Purpose",
+              "page_number": 1,
+              "chunk_text": "This policy describes when magnetic resonance imaging (MRI) of the lumbar spine is considered medically necessary for adults with low back pain or lumbar radiculopathy. Most episodes of acute low back pain improve within six weeks with conservative care, and early imaging without a clear indication does not improve outcomes. Prior authorization is required before the study is performed."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 60.0,
+              "source_sentence": "Age: 60 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 2.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 2 weeks,"
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": ""
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "The patient has had lower back pain with right-sided sciatica for 2 weeks, without improvement. Partial relief was given by Ibuprofen 600 mg three times daily."
+          },
+          "review_flags": [
+            "extraction_source_not_found:red_flags"
+          ],
+          "denial_probability": 0.8942,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 63.42,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-028",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 56.0,
+              "source_sentence": "Age: 56 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 3.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 3 weeks,"
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "Patient has had lower back pain with right-sided sciatica for 3 weeks, without improvement. Has tried Ibuprofen 600 mg three times daily but no physical therapy."
+          },
+          "review_flags": [],
+          "denial_probability": 0.9045,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 62.45,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-029",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness;",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 50.0,
+              "source_sentence": "Age: 50 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 2.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 2 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees."
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "Patient reports low back pain radiating to the left leg for 2 weeks with a positive straight leg raise on the left. No previous lumbar spine imaging."
+          },
+          "review_flags": [
+            "verdict_inconsistent_with_requirements"
+          ],
+          "denial_probability": 0.0476,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 46.15,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-030",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 71.0,
+              "source_sentence": "Age: 71 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 3.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 3 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurosurgery",
+              "source_sentence": "Specialty: Neurosurgery"
+            },
+            "clinical_summary": "[PATIENT_NAME] is a 71-year-old patient with low back pain radiating to the left leg, whose symptoms started 3 weeks ago. They have tried ibuprofen and experienced partial relief."
+          },
+          "review_flags": [],
+          "denial_probability": 0.8772,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 64.73,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-031",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 32.0,
+              "source_sentence": "Age: 32 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 4.0,
+              "source_sentence": "for 4 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "The patient reports low back pain radiating to the left leg for 4 weeks. Pain is worse with sitting."
+          },
+          "review_flags": [],
+          "denial_probability": 0.8672,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 79.07,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-032",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "Imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 38.0,
+              "source_sentence": "Age: 38 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16"
+            },
+            "symptom_duration_weeks": {
+              "value": 1.0,
+              "source_sentence": "for 1 week"
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "Patient has low back pain radiating to the left leg for 1 week. Pain is 6/10 and worse with sitting. Previous lumbar spine imaging not done."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0726,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 86.58,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-033",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 31.0,
+              "source_sentence": "Age: 31 years"
+            },
+            "procedure_code": {
+              "value": "72158",
+              "source_sentence": "CPT Code: 72158"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 4 months."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "[PATIENT_NAME] is a 31-year-old with low back pain radiating to the left leg for 4 months. No previous lumbar spine imaging has been done."
+          },
+          "review_flags": [],
+          "denial_probability": 0.9092,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 53.53,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-034",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 62.0,
+              "source_sentence": "Age: 62 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 8.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 2 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact,"
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient [PATIENT_NAME] has lower back pain with right-sided sciatica, lasting 2 months without improvement. No previous lumbar spine imaging."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.023,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 57.24,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-035",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions:",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 1,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 48.0,
+              "source_sentence": "Age: 48 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 4 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient [PATIENT_NAME] has lower back pain with right-sided sciatica, without improvement after 4 months. Neurological examination is within normal limits except for a positive straight leg raise on the left."
+          },
+          "review_flags": [
+            "citation_failed",
+            "verdict_inconsistent_with_requirements"
+          ],
+          "denial_probability": 0.0297,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 50.66,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-036",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 5,
+              "quote": "Imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 40.0,
+              "source_sentence": "Age: 40 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 4 months."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees."
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Neurology",
+              "source_sentence": "Specialty: Neurology"
+            },
+            "clinical_summary": "The patient is a 40-year-old [PATIENT_NAME] with low back pain radiating to the left leg for 4 months. The pain is worse with sitting and no physical therapy has been tried."
+          },
+          "review_flags": [
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.0719,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 57.0,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-037",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_approved",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "5 Repeat Imaging",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions...",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 52.0,
+              "source_sentence": "Age: 52 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M48.061"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M48.061"
+            },
+            "symptom_duration_weeks": {
+              "value": 8.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 2 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 7.0,
+              "source_sentence": "The patient completed 7 weeks of physical therapy with a home exercise program,"
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact,"
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact,"
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: lumbar spine MRI on 2026-04-04 showed mild L4-L5 disc bulging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient has lower back pain with right-sided sciatica for 2 months, without improvement after physical therapy. Previous lumbar spine MRI showed mild disc bulging."
+          },
+          "review_flags": [
+            "verdict_inconsistent_with_requirements"
+          ],
+          "denial_probability": 0.048,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 50.84,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-038",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "5 Repeat Imaging",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "6 Coding Information"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 9,
+              "quote": "A repeat lumbar spine MRI within twelve months of a previous lumbar spine MRI is not considered medically necessary unless there are new or significantly worsening symptoms or neurological findings since the previous study, a red flag condition from Section 2.1, or planned surgery as described in Section 2.3.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "5 Repeat Imaging",
+              "page_number": 2,
+              "chunk_text": "A repeat lumbar spine MRI within twelve months of a previous lumbar spine MRI is not considered medically necessary unless there are new or significantly worsening symptoms or neurological findings since the previous study, a red flag condition from Section 2.1, or planned surgery as described in Section 2.3. Unchanged chronic symptoms are not a reason for repeat imaging."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 61.0,
+              "source_sentence": "Age: 61 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.17",
+                "M51.26"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.17, M51.26"
+            },
+            "symptom_duration_weeks": {
+              "value": 16.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 4 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy with a home exercise program, without adequate relief."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": true,
+              "source_sentence": "Previous imaging: lumbar spine MRI on 2026-05-04 showed mild L4-L5 disc bulging. Symptoms are unchanged since that study."
+            },
+            "requesting_specialty": {
+              "value": "Primary Care",
+              "source_sentence": "Specialty: Primary Care"
+            },
+            "clinical_summary": "Patient has lower back pain with right-sided sciatica for 16 weeks, without improvement after physical therapy and no change in symptoms after previous lumbar spine MRI."
+          },
+          "review_flags": [],
+          "denial_probability": 0.7859,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 74.59,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-039",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "5 Repeat Imaging",
+            "6 Coding Information",
+            "4 Documentation Requirements",
+            "Introduction",
+            "3 Not Medically Necessary"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            }
+          ],
+          "failed_citation_count": 0,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 75.0,
+              "source_sentence": "Age: 75 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.16",
+                "M48.061"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.16, M48.061"
+            },
+            "symptom_duration_weeks": {
+              "value": 20.0,
+              "source_sentence": "Patient [PATIENT_NAME] has had lower back pain with right-sided sciatica for 4 months,"
+            },
+            "physical_therapy_weeks": {
+              "value": 8.0,
+              "source_sentence": "The patient completed 8 weeks of physical therapy with a home exercise program"
+            },
+            "other_conservative_treatments": {
+              "value": [
+                "Ibuprofen 600 mg three times daily"
+              ],
+              "source_sentence": "Ibuprofen 600 mg three times daily gave partial relief."
+            },
+            "red_flags": {
+              "value": [],
+              "source_sentence": null
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": true,
+              "source_sentence": "Previous imaging: lumbar spine MRI on 2026-02-03 showed mild L4-L5 disc bulging."
+            },
+            "requesting_specialty": {
+              "value": "Orthopedic Surgery",
+              "source_sentence": "Specialty: Orthopedic Surgery"
+            },
+            "clinical_summary": "Patient with lower back pain and right-sided sciatica, with no improvement after physical therapy and partial relief from ibuprofen. Previous lumbar spine MRI shows mild disc bulging."
+          },
+          "review_flags": [],
+          "denial_probability": 0.7726,
+          "model_disagreement": false,
+          "leaked_identity_fields": [],
+          "seconds": 71.5,
+          "cost_usd": 0.0,
+          "error": null
+        },
+        {
+          "case_id": "EVAL-040",
+          "expected_verdict": "likely_denied",
+          "predicted_verdict": "likely_denied",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ],
+          "verified_citations": [
+            {
+              "chunk_id": 7,
+              "quote": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "3 Not Medically Necessary",
+              "page_number": 2,
+              "chunk_text": "MRI of the lumbar spine is not considered medically necessary for uncomplicated acute low back pain, with or without radiculopathy, that has lasted less than six weeks when no red flag condition from Section 2.1 is documented. MRI is also not considered medically necessary for routine screening, or when the stated reason for imaging is the patient's request alone."
+            },
+            {
+              "chunk_id": 5,
+              "quote": "First, low back pain or radicular symptoms have persisted for at least six weeks.",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.2 Persistent Symptoms After Conservative Therapy",
+              "page_number": 1,
+              "chunk_text": "In the absence of red flag conditions, imaging is considered medically necessary when both of the following are documented. First, low back pain or radicular symptoms have persisted for at least six weeks. Second, the patient has completed at least six weeks of physician-directed conservative therapy that did not adequately relieve symptoms. Conservative therapy means physical therapy or a supervised home exercise program, and may also include anti-inflammatory medication, activity modification or chiropractic care. Medication alone does not meet the conservative therapy requirement. Requests with symptoms for six weeks or longer but no conservative therapy do not meet this section."
+            },
+            {
+              "chunk_id": 4,
+              "quote": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: ...",
+              "is_verified": true,
+              "failure_reason": null,
+              "policy_name": "Sample Lumbar Mri Policy",
+              "section_title": "2.1 Red Flag Conditions",
+              "page_number": 1,
+              "chunk_text": "Imaging is considered medically necessary without a trial of conservative therapy when the clinical notes document any of the following red flag conditions: symptoms of cauda equina syndrome, such as new urinary retention, bowel incontinence or saddle anesthesia; a progressive or severe neurological deficit, such as worsening foot drop or rapidly increasing weakness; suspected spinal infection, such as fever with back pain in a patient with intravenous drug use, recent spinal procedure or immunosuppression; suspected malignancy, such as a history of cancer with new back pain or unexplained weight loss; or suspected vertebral fracture after significant trauma or in a patient with osteoporosis or long-term steroid use. When a red flag condition is documented, the duration of symptoms is not a requirement."
+            }
+          ],
+          "failed_citation_count": 1,
+          "extracted_fields": {
+            "patient_age": {
+              "value": 55.0,
+              "source_sentence": "Age: 55 years"
+            },
+            "procedure_code": {
+              "value": "72148",
+              "source_sentence": "CPT Code: 72148"
+            },
+            "diagnosis_codes": {
+              "value": [
+                "M54.50"
+              ],
+              "source_sentence": "Diagnosis Codes: M54.50"
+            },
+            "symptom_duration_weeks": {
+              "value": 4.0,
+              "source_sentence": "[PATIENT_NAME] reports low back pain radiating to the left leg for 4 weeks."
+            },
+            "physical_therapy_weeks": {
+              "value": 0.0,
+              "source_sentence": "No physical therapy has been tried."
+            },
+            "other_conservative_treatments": {
+              "value": [],
+              "source_sentence": null
+            },
+            "red_flags": {
+              "value": [
+                "straight leg raise positive on the left at 45 degrees"
+              ],
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "neurological_exam_documented": {
+              "value": true,
+              "source_sentence": "Neurological examination: strength 5/5 in both legs, reflexes symmetric, sensation intact, straight leg raise positive on the left at 45 degrees."
+            },
+            "prior_lumbar_mri_within_12_months": {
+              "value": false,
+              "source_sentence": "Previous imaging: no previous lumbar spine imaging."
+            },
+            "requesting_specialty": {
+              "value": "Physical Medicine and Rehabilitation",
+              "source_sentence": "Specialty: Physical Medicine and Rehabilitation"
+            },
+            "clinical_summary": "[PATIENT_NAME] is a 55-year-old patient with low back pain radiating to the left leg for 4 weeks. Pain is worse with sitting."
+          },
+          "review_flags": [
+            "possible_prompt_injection",
+            "citation_failed",
+            "ai_and_risk_model_disagree"
+          ],
+          "denial_probability": 0.055,
+          "model_disagreement": true,
+          "leaked_identity_fields": [],
+          "seconds": 84.57,
+          "cost_usd": 0.0,
+          "error": null
+        }
+      ]
+    }
+  ]
+}

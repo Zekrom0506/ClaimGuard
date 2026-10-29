@@ -260,10 +260,16 @@ def evaluate_full(labelled_cases: list[dict], search_mode: str, embedder) -> dic
 # ---------------------------------------------------------------------------
 
 
-def format_number(value: object) -> str:
-    """Show ratios as percentages and leave everything else as it is."""
+def format_number(value: object, metric_name: str = "") -> str:
+    """Show ratios as percentages, money in dollars and everything else as it is."""
     if value is None:
         return "n/a"
+    if "usd" in metric_name and isinstance(value, int | float):
+        return f"${value:.4f}"
+    if "reciprocal_rank" in metric_name and isinstance(value, int | float):
+        return f"{value:.3f}"
+    if "seconds" in metric_name and isinstance(value, int | float):
+        return f"{value:.1f} s"
     if isinstance(value, float) and 0.0 <= value <= 1.0:
         return f"{value * 100:.1f}%"
     return str(value)
@@ -285,7 +291,7 @@ def render_markdown(report: dict) -> str:
         for metric_name, value in run.items():
             if isinstance(value, dict | list) or metric_name == "search_mode":
                 continue
-            lines.append(f"| {metric_name} | {format_number(value)} |")
+            lines.append(f"| {metric_name} | {format_number(value, metric_name)} |")
         if "extraction_accuracy_by_field" in run:
             lines.append("")
             lines.append("| Extracted field | Accuracy |")
@@ -297,7 +303,7 @@ def render_markdown(report: dict) -> str:
             lines.append("| Language model vs risk model | Value |")
             lines.append("|---|---|")
             for metric_name, value in run["llm_vs_risk_model"].items():
-                lines.append(f"| {metric_name} | {format_number(value)} |")
+                lines.append(f"| {metric_name} | {format_number(value, metric_name)} |")
         if "confusion_matrix" in run:
             lines.append("")
             lines.append("Confusion matrix (rows = correct answer, columns = ClaimGuard):")

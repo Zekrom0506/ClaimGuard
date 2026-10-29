@@ -1,0 +1,50 @@
+{
+  "run_at": "2026-10-28T02:07:42",
+  "data": "SYNTHETIC",
+  "training_file": "training_records.csv",
+  "row_counts": {
+    "train": 3500,
+    "validation": 750,
+    "test": 750
+  },
+  "denied_share": 0.5114,
+  "settings": {
+    "logistic_regression": {
+      "max_iter": 1000,
+      "C": 1.0
+    },
+    "xgboost": {
+      "n_estimators": 200,
+      "max_depth": 4,
+      "learning_rate": 0.1,
+      "subsample": 0.9,
+      "eval_metric": "logloss"
+    },
+    "decision_threshold": 0.5,
+    "random_seed": 42
+  },
+  "validation_scores": {
+    "logistic_regression": {
+      "precision": 0.8788,
+      "recall": 0.9062,
+      "f1": 0.8923,
+      "roc_auc": 0.9042,
+      "accuracy": 0.888
+    },
+    "xgboost": {
+      "precision": 0.9044,
+      "recall": 0.9115,
+      "f1": 0.9079,
+      "roc_auc": 0.9056,
+      "accuracy": 0.9053
+    }
+  },
+  "chosen_model": "xgboost",
+  "test_scores_for_chosen_model": {
+    "precision": 0.9023,
+    "recall": 0.9164,
+    "f1": 0.9093,
+    "roc_auc": 0.9135,
+    "accuracy": 0.9067
+  }
+}

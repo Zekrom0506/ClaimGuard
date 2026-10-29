@@ -1,0 +1,902 @@
+{
+  "run_at": "2026-10-28T04:11:42",
+  "mode": "retrieval",
+  "case_count": 40,
+  "data": "SYNTHETIC",
+  "runs": [
+    {
+      "search_mode": "hybrid",
+      "recall_at_5": 0.65,
+      "mean_reciprocal_rank": 0.3317,
+      "cases": [
+        {
+          "case_id": "EVAL-001",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-002",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-003",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-004",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-005",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-006",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-007",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-008",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "6 Coding Information",
+            "Introduction",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy"
+          ]
+        },
+        {
+          "case_id": "EVAL-009",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-010",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-011",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-012",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-013",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-014",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-015",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-016",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-017",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-018",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-019",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-020",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "2 Covered Indications",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-021",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "2 Covered Indications",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-022",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "2 Covered Indications",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-023",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "2 Covered Indications",
+            "1 Purpose"
+          ]
+        },
+        {
+          "case_id": "EVAL-024",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "6 Coding Information",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions"
+          ]
+        },
+        {
+          "case_id": "EVAL-025",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "6 Coding Information",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions"
+          ]
+        },
+        {
+          "case_id": "EVAL-026",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "6 Coding Information",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions"
+          ]
+        },
+        {
+          "case_id": "EVAL-027",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-028",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-029",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-030",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-031",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-032",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-033",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-034",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-035",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-036",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        },
+        {
+          "case_id": "EVAL-037",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "5 Repeat Imaging",
+            "6 Coding Information",
+            "4 Documentation Requirements",
+            "Introduction",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-038",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "5 Repeat Imaging",
+            "6 Coding Information",
+            "4 Documentation Requirements",
+            "Introduction",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-039",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "5 Repeat Imaging",
+            "6 Coding Information",
+            "4 Documentation Requirements",
+            "Introduction",
+            "3 Not Medically Necessary"
+          ]
+        },
+        {
+          "case_id": "EVAL-040",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "2.1 Red Flag Conditions",
+            "6 Coding Information"
+          ]
+        }
+      ]
+    },
+    {
+      "search_mode": "vector",
+      "recall_at_5": 1.0,
+      "mean_reciprocal_rank": 0.2921,
+      "cases": [
+        {
+          "case_id": "EVAL-001",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-002",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-003",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-004",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-005",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-006",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-007",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-008",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-009",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-010",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-011",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-012",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-013",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-014",
+          "expected_section": "2.1",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.1 Red Flag Conditions",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-015",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-016",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-017",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-018",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-019",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-020",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-021",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-022",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-023",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "1 Purpose",
+            "4 Documentation Requirements",
+            "5 Repeat Imaging"
+          ]
+        },
+        {
+          "case_id": "EVAL-024",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-025",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-026",
+          "expected_section": "4",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-027",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-028",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-029",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-030",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-031",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-032",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-033",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-034",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-035",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-036",
+          "expected_section": "2.2",
+          "retrieved_sections": [
+            "1 Purpose",
+            "3 Not Medically Necessary",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        },
+        {
+          "case_id": "EVAL-037",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "5 Repeat Imaging",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2 Covered Indications"
+          ]
+        },
+        {
+          "case_id": "EVAL-038",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "5 Repeat Imaging",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2 Covered Indications"
+          ]
+        },
+        {
+          "case_id": "EVAL-039",
+          "expected_section": "5",
+          "retrieved_sections": [
+            "3 Not Medically Necessary",
+            "1 Purpose",
+            "5 Repeat Imaging",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "2 Covered Indications"
+          ]
+        },
+        {
+          "case_id": "EVAL-040",
+          "expected_section": "3",
+          "retrieved_sections": [
+            "1 Purpose",
+            "2.2 Persistent Symptoms After Conservative Therapy",
+            "3 Not Medically Necessary",
+            "5 Repeat Imaging",
+            "4 Documentation Requirements"
+          ]
+        }
+      ]
+    }
+  ]
+}

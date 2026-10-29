@@ -5,7 +5,10 @@ directly. Switching from the Claude API to a local model (Ollama) is then a
 one-line settings change, and tests can plug in `FakeLLMClient`.
 """
 
+import re
+import time
 from abc import ABC, abstractmethod
+from collections.abc import Callable
 from dataclasses import dataclass
 
 import anthropic
@@ -14,6 +17,16 @@ import httpx
 from app.core.config import Settings
 
 OLLAMA_CONTEXT_TOKENS = 8192
+
+# Free API tiers allow only a few thousand tokens per minute. When the provider
+# says "slow down" (HTTP 429) we wait and try again, but never longer than this
+# per wait: a longer wait usually means the daily limit is used up.
+MAX_RATE_LIMIT_WAIT_SECONDS = 90
+MAX_RATE_LIMIT_RETRIES = 6
+DEFAULT_RATE_LIMIT_WAIT_SECONDS = 20
+
+# Some models (e.g. Qwen3) "think out loud" inside <think> tags before answering.
+THINKING_BLOCK_PATTERN = re.compile(r"<think>.*?</think>", re.DOTALL)
 
 
 class LLMError(Exception):
@@ -146,6 +159,102 @@ class OllamaLLMClient(LLMClient):
         )
 
 
+class OpenAICompatibleLLMClient(LLMClient):
+    """Calls any chat API that follows OpenAI's format.
+
+    Groq, Google Gemini, OpenRouter, Together and many others accept the same
+    request at `<base_url>/chat/completions`, so one client covers all of them.
+    Groq's free tier is the default in the README.
+    """
+
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str,
+        model_name: str,
+        reasoning_effort: str = "",
+        sleep: Callable[[float], None] = time.sleep,
+    ) -> None:
+        self.model_name = model_name
+        self._base_url = base_url.rstrip("/")
+        self._api_key = api_key
+        self._reasoning_effort = reasoning_effort
+        # Replaced in tests so they do not really wait.
+        self._sleep = sleep
+
+    def complete(
+        self,
+        task_name: str,
+        system_prompt: str,
+        user_prompt: str,
+        max_output_tokens: int = 2000,
+    ) -> LLMResponse:
+        """Send the prompt, waiting and retrying when the provider's rate limit is hit."""
+        if self._api_key == "":
+            raise LLMError("OPENAI_COMPATIBLE_API_KEY is not set.")
+        request_body = {
+            "model": self.model_name,
+            "max_tokens": max_output_tokens,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+        }
+        if self._reasoning_effort:
+            # e.g. "none" turns off Qwen3's thinking on Groq, which saves tokens.
+            request_body["reasoning_effort"] = self._reasoning_effort
+        headers = {"Authorization": f"Bearer {self._api_key}"}
+
+        for _ in range(MAX_RATE_LIMIT_RETRIES + 1):
+            try:
+                response = httpx.post(
+                    f"{self._base_url}/chat/completions",
+                    json=request_body,
+                    headers=headers,
+                    timeout=120,
+                )
+            except httpx.HTTPError as error:
+                raise LLMError(f"API call failed: {type(error).__name__}") from error
+
+            if response.status_code != 429:
+                break
+            wait_seconds = seconds_to_wait(response)
+            if wait_seconds > MAX_RATE_LIMIT_WAIT_SECONDS:
+                raise LLMError(
+                    f"Rate limit reached; the provider asks to wait {wait_seconds:.0f} s. "
+                    "The daily free limit is probably used up."
+                )
+            self._sleep(wait_seconds)
+        else:
+            raise LLMError("Rate limit still reached after several retries.")
+
+        if response.status_code >= 400:
+            # The body explains the problem (bad key, unknown model) and holds no case text.
+            error_detail = response.text[:300]
+            raise LLMError(f"API call failed with HTTP {response.status_code}: {error_detail}")
+
+        body = response.json()
+        answer_text = body["choices"][0]["message"].get("content") or ""
+        usage = body.get("usage") or {}
+        return LLMResponse(
+            text=THINKING_BLOCK_PATTERN.sub("", answer_text).strip(),
+            model_name=self.model_name,
+            input_tokens=usage.get("prompt_tokens", 0),
+            output_tokens=usage.get("completion_tokens", 0),
+        )
+
+
+def seconds_to_wait(response: httpx.Response) -> float:
+    """How long a rate-limited (429) response asks us to wait."""
+    retry_after = response.headers.get("retry-after")
+    if retry_after is None:
+        return DEFAULT_RATE_LIMIT_WAIT_SECONDS
+    try:
+        return float(retry_after) + 1
+    except ValueError:
+        return DEFAULT_RATE_LIMIT_WAIT_SECONDS
+
+
 class FakeLLMClient(LLMClient):
     """Returns recorded responses instead of calling a real model.
 
@@ -213,6 +322,13 @@ def create_llm_client(settings: Settings) -> LLMClient:
         return AnthropicLLMClient(settings.anthropic_api_key, settings.llm_model_name)
     if settings.llm_provider == "ollama":
         return OllamaLLMClient(settings.ollama_base_url, settings.llm_model_name)
+    if settings.llm_provider == "openai_compatible":
+        return OpenAICompatibleLLMClient(
+            settings.openai_compatible_base_url,
+            settings.openai_compatible_api_key,
+            settings.llm_model_name,
+            settings.llm_reasoning_effort,
+        )
     raise ValueError(f"Unknown LLM_PROVIDER '{settings.llm_provider}'.")
 
 
